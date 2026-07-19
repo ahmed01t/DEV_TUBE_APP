@@ -1,0 +1,125 @@
+.driftOne {
+  animation: drift-one 15s ease-in-out infinite;
+}
+
+.driftTwo {
+  animation: drift-two 18s ease-in-out infinite;
+}
+
+.contentReveal {
+  animation: reveal-up 700ms 100ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.formReveal {
+  animation: reveal-up 700ms 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.videoCard {
+  animation: card-float 7s ease-in-out infinite;
+}
+
+.activityCard {
+  animation: card-float 8s 700ms ease-in-out infinite reverse;
+}
+
+.floatingBadge {
+  animation: badge-orbit 6s ease-in-out infinite;
+}
+
+.pulseDot {
+  animation: soft-pulse 2s ease-in-out infinite;
+}
+
+.equalizer {
+  animation: equalize 1.25s ease-in-out infinite alternate;
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes drift-one {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(74px, 45px, 0) scale(1.12);
+  }
+}
+
+@keyframes drift-two {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(-62px, -55px, 0) scale(1.08);
+  }
+}
+
+@keyframes card-float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-11px) rotate(-0.7deg);
+  }
+}
+
+@keyframes badge-orbit {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: translate3d(10px, -12px, 0) rotate(12deg);
+  }
+}
+
+@keyframes soft-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.45;
+    transform: scale(0.72);
+  }
+}
+
+@keyframes equalize {
+  from {
+    transform: scaleY(0.38);
+    transform-origin: bottom;
+  }
+
+  to {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .driftOne,
+  .driftTwo,
+  .contentReveal,
+  .formReveal,
+  .videoCard,
+  .activityCard,
+  .floatingBadge,
+  .pulseDot,
+  .equalizer {
+    animation: none;
+  }
+}
