@@ -1,4 +1,6 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000/api/v1";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? (
+  process.env.NODE_ENV === "development" ? "http://localhost:8000/api/v1" : null
+);
 const ACCESS_TOKEN_KEY = "devtube_access_token";
 
 function hasBrowser() {
@@ -31,6 +33,12 @@ function toQueryString(parameters = {}) {
 }
 
 export async function request(path, options = {}) {
+  if (!API_BASE_URL) {
+    throw new Error(
+      "The API URL is not configured. Set NEXT_PUBLIC_API_BASE_URL to your deployed backend URL in Vercel."
+    );
+  }
+
   const { headers = {}, retryAfterRefresh = true, ...requestOptions } = options;
   const accessToken = getAccessToken();
   const response = await fetch(`${API_BASE_URL}${path}`, {

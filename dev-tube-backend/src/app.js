@@ -6,10 +6,25 @@ import cookieparser from "cookie-parser";
 const app= express();
 
 /// middlewares used for configuration   (app.use )
+function getAllowedOrigins() {
+    return (process.env.CORS_ORIGIN || "http://localhost:3000")
+        .split(",")
+        .map((origin) => origin.trim())
+        .filter(Boolean);
+}
+
 app.use(cors({
-    origin: process.env.CORS_ORIGIN,
-    credentials:true
-}))  
+    origin(origin, callback) {
+        // Requests without an Origin header (for example curl or server-to-server
+        // requests) are not browser CORS requests and can proceed normally.
+        if (!origin || getAllowedOrigins().includes(origin)) {
+            return callback(null, true);
+        }
+
+        return callback(new Error(`Origin ${origin} is not allowed by CORS`));
+    },
+    credentials: true
+}));
 
 // accepts data from user in json formmat with limit 16kb to prevent server from not crashing.
 app.use(express.json({limit :"16kb"}))
